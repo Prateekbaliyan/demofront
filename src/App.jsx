@@ -67,7 +67,7 @@ function App() {
 
       const response = await axios.post(
 
-        "https://demoback-iqcc.onrender.com",
+        "https://demoback.onrender.com/api/candidates",
 
         {
           ...candidate,
@@ -101,10 +101,14 @@ function App() {
     try {
 
       const response = await axios.get(
-        "https://demoback-iqcc.onrender.com"
+        "https://demoback.onrender.com/api/candidates"
       );
 
-      setCandidates(response.data);
+      setCandidates(
+        Array.isArray(response.data)
+          ? response.data
+          : []
+      );
 
     } catch (error) {
 
@@ -122,7 +126,7 @@ function App() {
 
       const response = await axios.post(
 
-        "https://demoback-iqcc.onrender.com",
+        "https://demoback.onrender.com/api/match",
 
         {
           requiredSkills: job.requiredSkills
@@ -134,7 +138,11 @@ function App() {
 
       );
 
-      setShortlisted(response.data);
+      setShortlisted(
+        Array.isArray(response.data)
+          ? response.data
+          : []
+      );
 
     } catch (error) {
 
@@ -152,7 +160,7 @@ function App() {
 
       const response = await axios.post(
 
-        "https://demoback-iqcc.onrender.com",
+        "https://demoback.onrender.com/api/ai/shortlist",
 
         {
           requiredSkills: job.requiredSkills
@@ -167,12 +175,15 @@ function App() {
       console.log(response.data);
 
       setAiResult(
-        response.data.choices[0].message.content
+        response.data?.choices?.[0]?.message?.content ||
+        "No AI Response"
       );
 
     } catch (error) {
 
       console.log(error);
+
+      setAiResult("AI Shortlisting Failed");
 
     }
 
@@ -325,6 +336,7 @@ function App() {
       <h2>Shortlisted Candidates</h2>
 
       {
+        Array.isArray(shortlisted) &&
         shortlisted.map((c, index) => (
 
           <div
@@ -369,6 +381,7 @@ function App() {
       <h2>All Candidates</h2>
 
       {
+        Array.isArray(candidates) &&
         candidates.map((c, index) => (
 
           <div
