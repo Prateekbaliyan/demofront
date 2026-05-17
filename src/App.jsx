@@ -67,7 +67,7 @@ function App() {
 
       const response = await axios.post(
 
-        "http://localhost:5000/api/candidates",
+        "https://demoback-iqcc.onrender.com",
 
         {
           ...candidate,
@@ -101,7 +101,7 @@ function App() {
     try {
 
       const response = await axios.get(
-        "http://localhost:5000/api/candidates"
+        "https://demoback-iqcc.onrender.com"
       );
 
       setCandidates(response.data);
@@ -122,7 +122,7 @@ function App() {
 
       const response = await axios.post(
 
-        "http://localhost:5000/api/match",
+        "https://demoback-iqcc.onrender.com",
 
         {
           requiredSkills: job.requiredSkills
@@ -152,7 +152,7 @@ function App() {
 
       const response = await axios.post(
 
-        "http://localhost:5000/api/ai/shortlist",
+        "https://demoback-iqcc.onrender.com",
 
         {
           requiredSkills: job.requiredSkills
